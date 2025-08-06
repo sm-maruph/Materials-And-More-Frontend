@@ -3,7 +3,7 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const SITE_KEY = "6Le6xZkrAAAAAIVx2tYJ7sGssMVklXDOmT2hFFk_"; // Your Google Site Key
-
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 function AdminLogin({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ function AdminLogin({ onLogin }) {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/admin/login", {
+      const res = await axios.post(`${API_BASE}/admin/login`, {
         username,
         password,
         captchaToken,

@@ -3,6 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import LoadingWithText from "./LoadWithText";
 import ProductEnquiryModal from "./ProductEnquiryModal";
+
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -23,7 +26,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/products/${id}`)
+      .get(`${API_BASE}/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch(console.error);
   }, [id]);
@@ -33,7 +36,7 @@ const ProductDetails = () => {
 
     // Fetch related products
     axios
-      .get(`http://localhost:5000/products/related`, {
+      .get(`${API_BASE}/products/related`, {
         params: {
           excludeId: product.id,
           subcategoryId: product.category_id,

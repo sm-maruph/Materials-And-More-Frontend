@@ -7,6 +7,8 @@ import ProductCard from "./ProductCard";
 import heroBannerImageEquipment from "../../assets/global/equipment.png";
 import heroBannerImageTest from "../../assets/global/testing.png";
 import LoadWithText from "./LoadWithText";
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 const normalize = (text) => text?.toLowerCase().replace(/[\s/-]+/g, "");
 
 const ReusableHome = () => {
@@ -20,7 +22,7 @@ const ReusableHome = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/products");
+        const res = await axios.get(`${API_BASE}/products`);
         const rawProducts = res.data;
 
         // Convert flat list to nested productDatabase structure

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function AdminBanner() {
   const [title, setTitle] = useState("");
@@ -17,7 +18,7 @@ function AdminBanner() {
 
   const fetchBanners = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/banners");
+      const res = await axios.get(`${API_BASE}/banners`);
       setBanners(res.data);
     } catch (err) {
       setError("Failed to load banners");
@@ -50,7 +51,7 @@ function AdminBanner() {
     setError("");
 
     try {
-      await axios.post("http://localhost:5000/banners", formData, {
+      await axios.post(`${API_BASE}/banners`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setTitle("");
@@ -71,7 +72,7 @@ function AdminBanner() {
     setError("");
 
     try {
-      await axios.delete(`http://localhost:5000/banners/${id}`, {
+      await axios.delete(`${API_BASE}/banners/${id}`, {
         data: { image_url },
       });
       fetchBanners();

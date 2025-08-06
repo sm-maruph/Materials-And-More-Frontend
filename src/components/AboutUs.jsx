@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import heroBannerImage from "../assets/global/hero.png"; // Assuming this is your contact page banner
 import ContactUsForm from "./ReusableComponent/ContactUsForm";
 import ImageWithLoader from "./ReusableComponent/ImageWithLoader";
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 const AboutUs = () => {
   // State to hold partners data fetched from API
   const [partners, setPartners] = useState([]);
@@ -15,7 +17,7 @@ const AboutUs = () => {
     const fetchPartners = async () => {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/partners");
+        const res = await fetch(`${API_BASE}/partners`);
         if (!res.ok) throw new Error("Failed to fetch partners");
         const data = await res.json();
         setPartners(data);

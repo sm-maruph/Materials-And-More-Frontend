@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import imageCompression from "browser-image-compression"; // 🔼 Add this at top
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function AdminPartners() {
   const [title, setTitle] = useState("");
@@ -23,7 +24,7 @@ function AdminPartners() {
   const fetchPartners = async () => {
     setFetchingPartners(true);
     try {
-      const res = await axios.get("http://localhost:5000/partners");
+      const res = await axios.get(`${API_BASE}/partners`);
       setPartners(res.data);
       setError("");
     } catch (err) {
@@ -88,11 +89,11 @@ function AdminPartners() {
     try {
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/partners/${editingId}`,
+          `${API_BASE}/partners/${editingId}`,
           formData
         );
       } else {
-        await axios.post("http://localhost:5000/partners", formData);
+        await axios.post(`${API_BASE}/partners`, formData);
       }
       resetForm();
       fetchPartners();
@@ -109,7 +110,7 @@ function AdminPartners() {
 
     setDeletingId(id);
     try {
-      await axios.delete(`http://localhost:5000/partners/${id}`);
+      await axios.delete(`${API_BASE}/partners/${id}`);
       // If deleting the partner being edited, reset form
       if (editingId === id) resetForm();
       fetchPartners();

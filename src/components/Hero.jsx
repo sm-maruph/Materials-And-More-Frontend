@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 const Hero = () => {
   const [banners, setBanners] = useState([]);
@@ -9,7 +10,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/banners");
+        const res = await axios.get(`${API_BASE}/banners`);
         setBanners(res.data);
       } catch (err) {
         console.error("Failed to fetch banners:", err);
